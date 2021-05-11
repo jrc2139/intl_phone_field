@@ -192,18 +192,14 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
     super.initState();
     _countryList = widget.countries == null
         ? countries
-        : countries
-            .where((country) => widget.countries!.contains(country['code']))
-            .toList();
+        : countries.where((country) => widget.countries!.contains(country['code'])).toList();
     filteredCountries = _countryList;
     _selectedCountry = _countryList.firstWhere(
         (item) => item['code'] == (widget.initialCountryCode ?? 'US'),
         orElse: () => _countryList.first);
 
     validator = widget.autoValidate
-        ? ((value) => value != null && value.length != 10
-            ? 'Invalid Mobile Number'
-            : null)
+        ? ((value) => value != null && value.length != 10 ? 'Invalid Mobile Number' : null)
         : widget.validator;
   }
 
@@ -226,9 +222,8 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
                   onChanged: (value) {
                     setState(() {
                       filteredCountries = _countryList
-                          .where((country) => country['name']!
-                              .toLowerCase()
-                              .contains(value.toLowerCase()))
+                          .where((country) =>
+                              country['name']!.toLowerCase().contains(value.toLowerCase()))
                           .toList();
                     });
                   },
@@ -261,8 +256,7 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
                               widget.onCountryChanged!(
                                 PhoneNumber(
                                   countryISOCode: _selectedCountry['code'],
-                                  countryCode:
-                                      '+${_selectedCountry['dial_code']}',
+                                  countryCode: '+${_selectedCountry['dial_code']}',
                                   number: '',
                                 ),
                               );
@@ -289,7 +283,10 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
-        _buildFlagsButton(),
+        Padding(
+          padding: EdgeInsets.only(bottom: 18),
+          child: _buildFlagsButton(),
+        ),
         SizedBox(width: 8),
         Expanded(
           child: TextFormField(
@@ -347,7 +344,7 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
       child: InkWell(
         borderRadius: widget.dropdownDecoration.borderRadius as BorderRadius?,
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
+          padding: const EdgeInsets.symmetric(vertical: 15),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -358,18 +355,16 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
                 ),
                 SizedBox(width: 4)
               ],
-              Image.asset(
-                'assets/flags/${_selectedCountry['code']!.toLowerCase()}.png',
-                package: 'intl_phone_field',
-                width: 32,
-              ),
-              SizedBox(width: 8),
+              // Image.asset(
+              // 'assets/flags/${_selectedCountry['code']!.toLowerCase()}.png',
+              // package: 'intl_phone_field',
+              // width: 32,
+              // ),
+              // SizedBox(width: 8),
               FittedBox(
                 child: Text(
                   '+${_selectedCountry['dial_code']}',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      color: widget.countryCodeTextColor),
+                  style: TextStyle(fontWeight: FontWeight.w700, color: widget.countryCodeTextColor),
                 ),
               ),
               SizedBox(width: 8),

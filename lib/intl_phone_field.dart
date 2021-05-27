@@ -144,6 +144,8 @@ class IntlPhoneField extends StatefulWidget {
   /// Whether this text field should focus itself if nothing else is already focused.
   final bool autofocus;
 
+  final bool enableSuggestions;
+
   TextInputAction? textInputAction;
 
   IntlPhoneField(
@@ -174,6 +176,7 @@ class IntlPhoneField extends StatefulWidget {
       this.countryCodeTextColor,
       this.dropDownArrowColor,
       this.autofocus = false,
+      this.enableSuggestions = true,
       this.textInputAction});
 
   @override
@@ -290,6 +293,7 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
         SizedBox(width: 8),
         Expanded(
           child: TextFormField(
+            enableSuggestions: widget.enableSuggestions,
             initialValue: widget.initialValue,
             readOnly: widget.readOnly,
             obscureText: widget.obscureText,
